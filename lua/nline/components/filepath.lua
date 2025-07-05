@@ -27,7 +27,7 @@ M.text = function()
 end
 
 M.update = function()
-    local path = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h")
+    local path = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.:h"):gsub("[.]/?", "")
 
     if path == "." or path == " " then
         path = ""

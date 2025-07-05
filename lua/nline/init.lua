@@ -1,14 +1,20 @@
 M = {}
 
-local left = {
-    "mode",
-    "filename",
-    "filepath"
-}
-
-local right = {
-    "filetype",
-    "lineinfo"
+M.config = {
+    components = {
+        left = {
+            "mode",
+            "filename",
+            "filepath"
+        },
+        right = {
+            "filetype",
+            "lineinfo"
+        }
+    },
+    disable_filetypes = {
+        "alpha",
+    }
 }
 
 local get_modules = function(components)
@@ -58,8 +64,8 @@ local build_line = function(components)
 end
 
 local line = function()
-    local left_line = build_line(left)
-    local right_line = build_line(right)
+    local left_line = build_line(M.config.components.left)
+    local right_line = build_line(M.config.components.right)
 
     return table.concat({
         left_line, "%=", right_line
@@ -70,11 +76,13 @@ M.draw = function()
     vim.o.statusline = line()
 end
 
-M.setup = function()
+M.setup = function(opts)
     require("nline.highlights").setup()
     local utils = require("nline.utils")
 
-    local components = utils.concat(left, right)
+    M.config = vim.tbl_deep_extend('force', M.config, opts)
+
+    local components = utils.concat(M.config.components.left, M.config.components.right)
 
     for event, modules in pairs(autocommands(components)) do
         vim.api.nvim_create_autocmd(event, {

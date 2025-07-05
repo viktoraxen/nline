@@ -13,7 +13,8 @@ M.update = function()
 end
 
 M.update_on = {
-    "BufEnter"
+    "BufEnter",
+    "Filetype"
 }
 
 return M
