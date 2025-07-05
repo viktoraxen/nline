@@ -5,7 +5,17 @@ M.state = {
 }
 
 M.text = function()
-    return M.state.filetype
+    if M.state.filetype == "" then return "" end
+
+    local devicons = require("nvim-web-devicons")
+    local icon, highlight = devicons.get_icon_by_filetype(M.state.filetype, { default = true })
+
+    return table.concat({
+        "%#" .. highlight .. "#",
+        icon,
+        "%## ",
+        M.state.filetype,
+    })
 end
 
 M.update = function()

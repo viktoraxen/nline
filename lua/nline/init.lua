@@ -12,8 +12,11 @@ M.config = {
             "lineinfo"
         }
     },
-    disable_filetypes = {
+    hide_filetypes = {
         "alpha",
+    },
+    disable_filetypes = {
+        "snacks_notif"
     }
 }
 
@@ -73,6 +76,11 @@ local line = function()
 end
 
 M.draw = function()
+    if vim.tbl_contains(M.config.hide_filetypes, vim.bo.ft) then
+        vim.o.laststatus = 0
+        return
+    end
+
     vim.o.statusline = line()
 end
 
@@ -88,6 +96,10 @@ M.setup = function(opts)
         vim.api.nvim_create_autocmd(event, {
             group    = 'Nline',
             callback = function()
+                if vim.tbl_contains(M.config.disable_filetypes, vim.bo.ft) then return end
+
+                vim.opt.laststatus = 3
+
                 for _, module in pairs(modules) do
                     module.update()
                 end
@@ -97,7 +109,12 @@ M.setup = function(opts)
         })
     end
 
-    vim.opt.laststatus = 3
+    vim.api.nvim_create_autocmd("UIEnter", {
+        group    = 'Nline',
+        callback = function()
+            M.draw()
+        end
+    })
 end
 
 return M
