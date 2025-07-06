@@ -2,6 +2,14 @@ local M = {}
 
 M.config = {
     padding = 1,
+    inactive_filetypes = {
+        "neo-tree",
+        "snacks_terminal",
+        "snacks_picker_input",
+        "snacks_picker_preview",
+        "snacks_notif",
+        "cmp_menu",
+    }
 }
 
 M.state = {
@@ -9,6 +17,8 @@ M.state = {
 }
 
 M.text = function()
+    if vim.tbl_contains(M.config.inactive_filetypes, vim.bo.ft) then return "" end
+
     if M.state.filename == "" then return "" end
 
     local text = string.format("󰧮 %s", M.state.filename)

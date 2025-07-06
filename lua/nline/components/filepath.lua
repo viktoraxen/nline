@@ -3,7 +3,15 @@ local M = {}
 M.config = {
     padding = 1,
     highlight = "NLineFilePath",
-    inactive_modes = { "t", "nt" }
+    inactive_modes = { "t", "nt" },
+    inactive_filetypes = {
+        "neo-tree",
+        "snacks_terminal",
+        "snacks_picker_input",
+        "snacks_picker_preview",
+        "snacks_notif",
+        "cmp_menu",
+    }
 }
 
 M.state = {
@@ -14,6 +22,8 @@ M.text = function()
     if vim.tbl_contains(M.config.inactive_modes, vim.api.nvim_get_mode().mode) then
         return ""
     end
+
+    if vim.tbl_contains(M.config.inactive_filetypes, vim.bo.ft) then return "" end
 
     if M.state.filepath == "" then return "" end
 

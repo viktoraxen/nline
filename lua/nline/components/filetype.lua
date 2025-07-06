@@ -8,7 +8,7 @@ M.config = {
         "snacks_picker_input",
         "snacks_picker_preview",
         "snacks_notif",
-        "cmp-menu",
+        "cmp_menu",
     }
 }
 

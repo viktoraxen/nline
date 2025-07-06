@@ -5,6 +5,7 @@ M.config = {
         left = {
             "mode",
             "filename",
+            "diagnostic",
             "filepath",
         },
         right = {
