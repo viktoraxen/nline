@@ -1,8 +1,9 @@
 local M = {}
 
 M.config = {
-    width = 10,
     padding = 1,
+    highlight = "NLineFilePath",
+    inactive_modes = { "t", "nt" }
 }
 
 M.state = {
@@ -10,18 +11,21 @@ M.state = {
 }
 
 M.text = function()
+    if vim.tbl_contains(M.config.inactive_modes, vim.api.nvim_get_mode().mode) then
+        return ""
+    end
+
     if M.state.filepath == "" then return "" end
 
-    local align = require("nline.utils").align
+    local highlight = require("nline.utils").highlight
 
-    local text = string.format("  %s", M.state.filepath)
+    local text = string.format(" %s", M.state.filepath)
 
     local padding = string.rep(" ", M.config.padding)
-    local text_width = M.config.width - 2 * M.config.padding
 
     return table.concat({
         padding,
-        align(text, text_width, "left"),
+        highlight(text, M.config.highlight),
         padding,
     })
 end

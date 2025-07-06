@@ -1,5 +1,25 @@
 local M = {}
 
+M.highlight = function(text, group)
+    return table.concat({
+        "%#" .. group .. "#",
+        text,
+        "%##",
+    })
+end
+
+M.pad = function(text, min_width, left_pad, right_pad)
+    local left_padding = string.rep(" ", left_pad)
+    local right_padding = string.rep(" ", right_pad)
+    local text_width = min_width - (left_pad + right_pad)
+
+    return table.concat({
+        left_padding,
+        text,
+        right_padding
+    })
+end
+
 M.align = function(text, width, dir)
     if not text then return string.rep(" ", width) end
 

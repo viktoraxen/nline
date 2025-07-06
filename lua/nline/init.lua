@@ -1,15 +1,16 @@
-M = {}
+local M = {}
 
 M.config = {
     components = {
         left = {
             "mode",
             "filename",
-            "filepath"
+            "filepath",
         },
         right = {
+            "git",
             "filetype",
-            "lineinfo"
+            "lineinfo",
         }
     },
     hide_filetypes = {
@@ -88,11 +89,11 @@ M.setup = function(opts)
     require("nline.highlights").setup()
     local utils = require("nline.utils")
 
-    M.config = vim.tbl_deep_extend('force', M.config, opts)
+    M.config = vim.tbl_deep_extend("force", M.config, opts)
 
-    local components = utils.concat(M.config.components.left, M.config.components.right)
+    local all_components = utils.concat(M.config.components.left, M.config.components.right)
 
-    for event, modules in pairs(autocommands(components)) do
+    for event, modules in pairs(autocommands(all_components)) do
         vim.api.nvim_create_autocmd(event, {
             group    = 'Nline',
             callback = function()

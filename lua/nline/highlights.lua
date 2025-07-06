@@ -1,17 +1,16 @@
 local M = {}
 
 local highlights = {
-    NLineModeNormal = "#89B4FA",
-    NLineModeInsert = "#A6E3A1",
-    NLineModeVisual = "#CBA6F7",
-    NLineModeCommand = "#FAB387",
-    NLineModeReplace = "#F38BA8",
+    NLineModeNormal = "#89B4FA",  -- blue
+    NLineModeInsert = "#A6E3A1",  -- green
+    NLineModeVisual = "#CBA6F7",  -- mauve
+    NLineModeCommand = "#FAB387", -- peach
+    NLineModeReplace = "#F38BA8", -- red
+    NLineGitBranch = "#9399b2",   -- overlay2
+    NLineFilePath = "#9399b2",    -- overlay2
 }
 
 function M.setup()
-    -- -- Allow user to override the defaults
-    -- local highlights = vim.tbl_deep_extend("force", M.highlights, config.highlights or {})
-
     local normal_hl_decimal = vim.api.nvim_get_hl(0, { name = "Normal" })
 
     local normal_hl = {

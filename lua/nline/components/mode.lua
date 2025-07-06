@@ -21,6 +21,7 @@ local texts = {
     ["r?"] = "Confirm",
     ["!"] = "Shell",
     ["t"] = "Terminal",
+    ["nt"] = "Normal",
 }
 
 M.highlight_map = {
@@ -44,11 +45,11 @@ M.highlight_map = {
     ["r?"] = "NLineModeNormal",
     ["!"] = "NLineModeNormal",
     ["t"] = "NLineModeInsert",
-    ["nt"] = "NLineModeInsert",
+    ["nt"] = "NLineModeNormal",
 }
 
 M.config = {
-    width = 10,
+    width = 1,
     padding = 1,
 }
 
