@@ -8,6 +8,9 @@ M.config = {
         "snacks_picker_input",
         "snacks_picker_preview",
         "snacks_notif",
+        -- "cmp_menu",
+    },
+    skip_filetype = {
         "cmp_menu",
     }
 }
@@ -38,7 +41,9 @@ M.text = function()
 end
 
 M.update = function()
-    M.state.filetype = vim.bo.filetype
+    if vim.tbl_contains(M.config.skip_filetype, vim.bo.ft) then return end
+
+    M.state.filetype = vim.bo.ft
 end
 
 M.update_on = {
